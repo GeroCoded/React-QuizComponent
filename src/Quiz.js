@@ -14,6 +14,13 @@ class Quiz extends Component {
         };
     }
 
+    showNextQuestion() {
+        console.log('\n== Quiz ==');
+        this.setState((previousState) => {
+            return { quiz_position: ++previousState.quiz_position }
+        });
+    }
+
     render() {
 
         const isQuizEnd = this.state.quiz_position - 1 === quizData.quiz_questions.length;
@@ -22,7 +29,7 @@ class Quiz extends Component {
             <div>
                 { isQuizEnd 
                     ? <QuizEnd />
-                    : <QuizQuestion quiz_question={quizData.quiz_questions[this.state.quiz_position - 1]} />
+                    : <QuizQuestion quiz_question={quizData.quiz_questions[this.state.quiz_position - 1]} showNextQuestionHandler={this.showNextQuestion.bind(this)} />
                 }
                 {/* <div className="QuizQuestion">
                     {quizData.quiz_questions.find((question) => question.id === this.state.quiz_position).instruction_text}
