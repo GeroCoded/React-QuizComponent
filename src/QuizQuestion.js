@@ -3,18 +3,29 @@ import QuizQuestionButton from './QuizQuestionButton';
 
 class QuizQuestion extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            incorrectAnswer: false
+        };
+    }
+
     handleClick(buttonText) {
         console.log('\n== QuizQuestionext ==');
         console.log('ButtonText:', buttonText);
         console.log('this.props.quiz_question.answer:', this.props.quiz_question.answer);
-        if (buttonText === this.props.quiz_question.answer) {
+        const incorrectAnswer = buttonText !== this.props.quiz_question.answer;
+        
+        if (!incorrectAnswer) {
             this.props.showNextQuestionHandler();
         }
+        this.setState({ incorrectAnswer })
     }
 
     render() {
         return (
             <main>
+                { this.state.incorrectAnswer && <p className="error">Sorry, that's not right</p> }
                 <section>
                     <p>
                         {this.props.quiz_question.instruction_text}
